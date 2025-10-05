@@ -1,4 +1,3 @@
-
 using System;
 using System.Windows.Forms;
 
@@ -11,46 +10,45 @@ namespace WindowsFormsApp1
             InitializeComponent();
         }
 
-        private void btnClients_Click(object sender, EventArgs e)
+        private void btnAddClient_Click(object sender, EventArgs e)
         {
-            Form2 f2 = new Form2();
-            f2.ShowDialog();
+            Form2 form = new Form2();
+            form.ShowDialog();
         }
 
-        private void btnItems_Click(object sender, EventArgs e)
+        private void btnAddItem_Click(object sender, EventArgs e)
         {
-            Form3 f3 = new Form3();
-            f3.ShowDialog();
+            Form3 form = new Form3();
+            form.ShowDialog();
         }
 
-        private void btnContracts_Click(object sender, EventArgs e)
+        private void btnAddContract_Click(object sender, EventArgs e)
         {
-            Form4 f4 = new Form4();
-            f4.ShowDialog();
+            Form4 form = new Form4();
+            form.ShowDialog();
         }
-
         private void btnReports_Click(object sender, EventArgs e)
         {
-            Form5 f5 = new Form5();
-            f5.ShowDialog();
+            Form5 form5 = new Form5();
+            form5.Show(); 
         }
 
         private void btnViewClients_Click(object sender, EventArgs e)
         {
-            Form6 f6 = new Form6();
-            f6.ShowDialog();
+            Form6 form = new Form6();
+            form.ShowDialog();
         }
 
         private void btnViewItems_Click(object sender, EventArgs e)
         {
-            Form7 f7 = new Form7();
-            f7.ShowDialog();
+            Form7 form = new Form7();
+            form.ShowDialog();
         }
 
         private void btnViewContracts_Click(object sender, EventArgs e)
         {
-            Form8 f8 = new Form8();
-            f8.ShowDialog();
+            Form8 form = new Form8();
+            form.ShowDialog();
         }
     }
 }

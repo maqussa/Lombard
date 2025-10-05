@@ -1,4 +1,3 @@
-
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -7,7 +6,7 @@ namespace WindowsFormsApp1
 {
     public partial class Form3 : Form
     {
-        string path = PathCombine("items.txt");
+        private string path = Path.Combine(Application.StartupPath, "data", "items.txt");
 
         public Form3()
         {
@@ -16,17 +15,24 @@ namespace WindowsFormsApp1
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string itemData = $"{txtName.Text};{txtCategory.Text};{txtValue.Text}";
-            File.AppendAllText(path, itemData + Environment.NewLine);
-            MessageBox.Show("Предмет сохранён!");
-            txtName.Text = "";
-            txtCategory.Text = "";
-            txtValue.Text = "";
-        }
+            if (string.IsNullOrWhiteSpace(txtName.Text) ||
+                string.IsNullOrWhiteSpace(txtCategory.Text) ||
+                string.IsNullOrWhiteSpace(txtCondition.Text))
+            {
+                MessageBox.Show("Пожалуйста, заполните все поля!", "Ошибка");
+                return;
+            }
 
-        private static string PathCombine(string filename)
-        {
-            return System.IO.Path.Combine(Application.StartupPath, filename);
+            Directory.CreateDirectory(Path.Combine(Application.StartupPath, "data"));
+
+            string itemData = $"{txtName.Text};{txtCategory.Text};{txtCondition.Text}";
+            File.AppendAllText(path, itemData + Environment.NewLine);
+
+            MessageBox.Show("Предмет сохранён!", "Успех");
+
+            txtName.Clear();
+            txtCategory.Clear();
+            txtCondition.Clear();
         }
     }
 }

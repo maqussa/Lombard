@@ -1,4 +1,3 @@
-
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -7,7 +6,7 @@ namespace WindowsFormsApp1
 {
     public partial class Form2 : Form
     {
-        string path = PathCombine("clients.txt");
+        private string path = Path.Combine(Application.StartupPath, "data", "clients.txt");
 
         public Form2()
         {
@@ -16,17 +15,30 @@ namespace WindowsFormsApp1
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string clientData = $"{txtName.Text};{txtPassport.Text};{txtPhone.Text}";
-            File.AppendAllText(path, clientData + Environment.NewLine);
-            MessageBox.Show("Клиент сохранён!");
-            txtName.Text = "";
-            txtPassport.Text = "";
-            txtPhone.Text = "";
-        }
+            // Проверка на пустые поля
+            if (string.IsNullOrWhiteSpace(txtName.Text) ||
+                string.IsNullOrWhiteSpace(txtPhone.Text) ||
+                string.IsNullOrWhiteSpace(txtAddress.Text))
+            {
+                MessageBox.Show("Пожалуйста, заполните все поля!", "Ошибка");
+                return;
+            }
 
-        private static string PathCombine(string filename)
-        {
-            return System.IO.Path.Combine(Application.StartupPath, filename);
+            // Создание строки для сохранения
+            string clientData = $"{txtName.Text};{txtPhone.Text};{txtAddress.Text}";
+
+            // Создание папки data, если не существует
+            Directory.CreateDirectory(Path.Combine(Application.StartupPath, "data"));
+
+            // Добавление новой строки в файл
+            File.AppendAllText(path, clientData + Environment.NewLine);
+
+            MessageBox.Show("Клиент сохранён!", "Успех");
+
+            // Очистка полей
+            txtName.Clear();
+            txtPhone.Clear();
+            txtAddress.Clear();
         }
     }
 }

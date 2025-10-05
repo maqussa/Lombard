@@ -1,4 +1,3 @@
-
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -7,7 +6,7 @@ namespace WindowsFormsApp1
 {
     public partial class Form4 : Form
     {
-        string path = PathCombine("contracts.txt");
+        private string path = Path.Combine(Application.StartupPath, "data", "contracts.txt");
 
         public Form4()
         {
@@ -16,12 +15,24 @@ namespace WindowsFormsApp1
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string contractData = $"{txtClientID.Text};{txtItemID.Text};{txtSum.Text};{dtpDate.Value.ToShortDateString()}";
+            if (string.IsNullOrWhiteSpace(txtClientName.Text) ||
+                string.IsNullOrWhiteSpace(txtItemName.Text) ||
+                string.IsNullOrWhiteSpace(txtSum.Text))
+            {
+                MessageBox.Show("Пожалуйста, заполните все поля!", "Ошибка");
+                return;
+            }
+
+            Directory.CreateDirectory(Path.Combine(Application.StartupPath, "data"));
+
+            string contractData = $"{txtClientName.Text};{txtItemName.Text};{txtSum.Text};{dtpDate.Value.ToShortDateString()}";
             File.AppendAllText(path, contractData + Environment.NewLine);
-            MessageBox.Show("Договор сохранён!");
-            txtClientID.Text = "";
-            txtItemID.Text = "";
-            txtSum.Text = "";
+
+            MessageBox.Show("Договор сохранён!", "Успех");
+
+            txtClientName.Clear();
+            txtItemName.Clear();
+            txtSum.Clear();
         }
 
         private void btnView_Click(object sender, EventArgs e)
@@ -29,21 +40,13 @@ namespace WindowsFormsApp1
             if (File.Exists(path))
             {
                 lstContracts.Items.Clear();
-                string[] lines = File.ReadAllLines(path);
-                foreach (var line in lines)
-                {
+                foreach (var line in File.ReadAllLines(path))
                     lstContracts.Items.Add(line);
-                }
             }
             else
             {
                 MessageBox.Show("Файл договоров пуст или отсутствует.");
             }
-        }
-
-        private static string PathCombine(string filename)
-        {
-            return System.IO.Path.Combine(Application.StartupPath, filename);
         }
     }
 }
