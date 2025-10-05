@@ -1,0 +1,57 @@
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.cache
+*.ilk
+*.log
+*.obj
+*.pch
+*.pdb
+*.idb
+*.ipch
+*.class
+*.dll
+*.exe
+*.tmp
+*.bak
+*.ncb
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.aps
+*.nsh
+
+# Build Folders
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+
+# Rider
+.idea/
+*.iml
+
+# ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+# NuGet
+*.nupkg
+packages/
+*.snupkg
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Others
+*.vsix
+*.vscode/
